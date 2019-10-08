@@ -2,81 +2,6 @@
 
 Big thanks to Norbyte for finding all of these.
 
-## Skill Heal Scaling
-
-| Data Key | Default Value |
-| ------------- | ------------- |
-| VitalityStartingAmount | 21 |
-| VitalityExponentialGrowth | 1.25 |
-| VitalityLinearGrowth | 9.091 |
-| VitalityToDamageRatio | 5 |
-| VitalityToDamageRatioGrowth | 0.2 |
-| ExpectedDamageBoostFromAttributePerLevel | 0.065 |
-| ExpectedDamageBoostFromSkillAbilityPerLevel | 0.015 |
-| ExpectedDamageBoostFromWeaponAbilityPerLevel | 0.025 |
-| ExpectedConGrowthForArmorCalculation | 1 |
-| FirstVitalityLeapLevel | 9 |
-| FirstVitalityLeapGrowth | 1.25 |
-| SecondVitalityLeapLevel | 13 |
-| SecondVitalityLeapGrowth | 1.25 |
-| ThirdVitalityLeapLevel | 16 |
-| ThirdVitalityLeapGrowth | 1.25 |
-| FourthVitalityLeapLevel | 18 |
-| FourthVitalityLeapGrowth | 1.35 |
-
-```c++
-vitalityExp = pow(VitalityExponentialGrowth, level - 1);
-if ( level >= FirstVitalityLeapLevel )
-{
-vitalityExp = vitalityExp * FirstVitalityLeapGrowth / VitalityExponentialGrowth;
-}
-if ( level >= SecondVitalityLeapLevel )
-{
-vitalityExp = vitalityExp * SecondVitalityLeapGrowth / VitalityExponentialGrowth;
-}
-if ( level >= ThirdVitalityLeapLevel )
-{
-vitalityExp = vitalityExp * ThirdVitalityLeapGrowth / VitalityExponentialGrowth;
-}
-if ( level >= FourthVitalityLeapLevel_ )
-{
-vitalityExp = vitalityExp * FourthVitalityLeapGrowth / VitalityExponentialGrowth;
-}
-vitalityBoost = roundf((level * VitalityLinearGrowth) + (VitalityStartingAmount * vitalityExp)) / 5 * 5.0;
-
-levelScaledDamage = vitalityBoost / (((level - 1) * VitalityToDamageRatioGrowth) + VitalityToDamageRatio);
-
-averageLevelDamage = (((level * ExpectedDamageBoostFromSkillAbilityPerLevel) + 1.0) * levelScaledDamage)
-       * ((level * ExpectedDamageBoostFromSkillAbilityPerLevel) + 1.0);
-
-return round(healValue * averageLevelDamage * HealToDamageRatio / 100.0);
-```
-
-## Vitality Scaling
-
-| Data Key | Default Value |
-| ------------- | ------------- |
-| VitalityStartingAmount | 21 |
-| VitalityLinearGrowth | 9.091 |
-
-```c++
-vitalityBoost = roundf((level * VitalityLinearGrowth) + (VitalityStartingAmount * vitalityExp)) / 5 * 5.0;
-result = vitalityBoost * vitality / 100
-```
-
-## Armor Scaling
-
-| Data Key | Default Value |
-| ------------- | ------------- |
-| AttributeBaseValue | 10 |
-| ExpectedConGrowthForArmorCalculation | 1 |
-| VitalityBoostFromAttribute | 0.07 |
-| ArmorToVitalityRatio | 0.55 |
-
-```c++
-armorScaling = (vitalityBoost * ((AttributeBaseValue + level * ExpectedConGrowthForArmorCalculation - AttributeBaseValue) * VitalityBoostFromAttribute) + 1.0) * ArmorToVitalityRatio;
-armor = armorScaling * armor / 100;
-```
 
 ## Accuracy
 
@@ -176,6 +101,105 @@ baseHitChance = min(round((100.0 - targetDodge) * Attacker.Accuracy / 100.0), 10
 HitChance = min(baseHitChance + Attacker.ChanceToHitBoost, 100.0)
 ```
 
+## Armor Scaling
+
+| Data Key | Default Value |
+| ------------- | ------------- |
+| AttributeBaseValue | 10 |
+| ExpectedConGrowthForArmorCalculation | 1 |
+| VitalityBoostFromAttribute | 0.07 |
+| ArmorToVitalityRatio | 0.55 |
+
+```c++
+armorScaling = (vitalityBoost * ((AttributeBaseValue + level * ExpectedConGrowthForArmorCalculation - AttributeBaseValue) * VitalityBoostFromAttribute) + 1.0) * ArmorToVitalityRatio;
+armor = armorScaling * armor / 100;
+```
+
+## Character Stats
+
+### Attribute Growth
+
+| Data Key  | Default Value |
+| ------------- | ------------- |
+| AttributeBoostGrowth  | 0.75  |
+
+```c++
+ceil(((AttributeValue - 11) / 10 * Level) * AttributeBoostGrowth)
+```
+
+## Ability Growth
+
+| Data Key  | Default Value |
+| ------------- | ------------- |
+| CombatAbilityNpcGrowth  | 0.1  |
+| CombatAbilityCap  | 10  |
+
+```c++
+min(round(Level * AbilityValue * CombatAbilityNpcGrowth), CombatAbilityCap)
+```
+
+## Skill Heal Scaling
+
+| Data Key | Default Value |
+| ------------- | ------------- |
+| VitalityStartingAmount | 21 |
+| VitalityExponentialGrowth | 1.25 |
+| VitalityLinearGrowth | 9.091 |
+| VitalityToDamageRatio | 5 |
+| VitalityToDamageRatioGrowth | 0.2 |
+| ExpectedDamageBoostFromAttributePerLevel | 0.065 |
+| ExpectedDamageBoostFromSkillAbilityPerLevel | 0.015 |
+| ExpectedDamageBoostFromWeaponAbilityPerLevel | 0.025 |
+| ExpectedConGrowthForArmorCalculation | 1 |
+| FirstVitalityLeapLevel | 9 |
+| FirstVitalityLeapGrowth | 1.25 |
+| SecondVitalityLeapLevel | 13 |
+| SecondVitalityLeapGrowth | 1.25 |
+| ThirdVitalityLeapLevel | 16 |
+| ThirdVitalityLeapGrowth | 1.25 |
+| FourthVitalityLeapLevel | 18 |
+| FourthVitalityLeapGrowth | 1.35 |
+
+```c++
+vitalityExp = pow(VitalityExponentialGrowth, level - 1);
+if ( level >= FirstVitalityLeapLevel )
+{
+vitalityExp = vitalityExp * FirstVitalityLeapGrowth / VitalityExponentialGrowth;
+}
+if ( level >= SecondVitalityLeapLevel )
+{
+vitalityExp = vitalityExp * SecondVitalityLeapGrowth / VitalityExponentialGrowth;
+}
+if ( level >= ThirdVitalityLeapLevel )
+{
+vitalityExp = vitalityExp * ThirdVitalityLeapGrowth / VitalityExponentialGrowth;
+}
+if ( level >= FourthVitalityLeapLevel_ )
+{
+vitalityExp = vitalityExp * FourthVitalityLeapGrowth / VitalityExponentialGrowth;
+}
+vitalityBoost = roundf((level * VitalityLinearGrowth) + (VitalityStartingAmount * vitalityExp)) / 5 * 5.0;
+
+levelScaledDamage = vitalityBoost / (((level - 1) * VitalityToDamageRatioGrowth) + VitalityToDamageRatio);
+
+averageLevelDamage = (((level * ExpectedDamageBoostFromSkillAbilityPerLevel) + 1.0) * levelScaledDamage)
+       * ((level * ExpectedDamageBoostFromSkillAbilityPerLevel) + 1.0);
+
+return round(healValue * averageLevelDamage * HealToDamageRatio / 100.0);
+```
+
+## Vitality Scaling
+
+| Data Key | Default Value |
+| ------------- | ------------- |
+| VitalityStartingAmount | 21 |
+| VitalityLinearGrowth | 9.091 |
+
+```c++
+vitalityBoost = roundf((level * VitalityLinearGrowth) + (VitalityStartingAmount * vitalityExp)) / 5 * 5.0;
+result = vitalityBoost * vitality / 100
+```
+
 ## Pickpocket Pricing
 
 | Data Key | Default Value |
@@ -213,27 +237,4 @@ if ( PickpocketExpLevel >= FourthPriceLeapLevel )
 }
 price = ceil(PickpocketGoldValuePerPoint * priceGrowthExp * GlobalGoldValueMultiplier);
 return 50 * round(price / 50.0);
-```
-
-## Characters
-
-### Attribute Growth
-
-| Data Key  | Default Value |
-| ------------- | ------------- |
-| AttributeBoostGrowth  | 0.75  |
-
-```c++
-ceil(((AttributeValue - 11) / 10 * Level) * AttributeBoostGrowth)
-```
-
-## Ability Growth
-
-| Data Key  | Default Value |
-| ------------- | ------------- |
-| CombatAbilityNpcGrowth  | 0.1  |
-| CombatAbilityCap  | 10  |
-
-```c++
-min(round(Level * AbilityValue * CombatAbilityNpcGrowth), CombatAbilityCap)
 ```
