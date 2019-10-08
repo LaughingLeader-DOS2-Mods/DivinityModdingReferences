@@ -2,22 +2,23 @@
 
 Big thanks to Norbyte for finding all of these.
 
-# Table of Contents <!-- omit in toc -->
-- [Accuracy](#accuracy)
-  - [AccuracyBonusAbility](#accuracybonusability)
-  - [WeaponAccuracyPenalty](#weaponaccuracypenalty)
-  - [WeaponAccuracy](#weaponaccuracy)
-  - [Accuracy](#accuracy-1)
-  - [DodgeBoost](#dodgeboost)
-  - [Dodge](#dodge)
-  - [HitChance](#hitchance)
-- [Armor Scaling](#armor-scaling)
-- [Character Stats](#character-stats)
-  - [Attribute Growth](#attribute-growth)
-- [Ability Growth](#ability-growth)
-- [Skill Heal Scaling](#skill-heal-scaling)
-- [Vitality Scaling](#vitality-scaling)
-- [Pickpocket Pricing](#pickpocket-pricing)
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+  - [Accuracy](#accuracy)
+    - [AccuracyBonusAbility](#accuracybonusability)
+    - [WeaponAccuracyPenalty](#weaponaccuracypenalty)
+    - [WeaponAccuracy](#weaponaccuracy)
+    - [Accuracy](#accuracy-1)
+    - [DodgeBoost](#dodgeboost)
+    - [Dodge](#dodge)
+    - [HitChance](#hitchance)
+  - [Armor Scaling](#armor-scaling)
+  - [Character Stats](#character-stats)
+    - [Attribute Growth](#attribute-growth)
+  - [Ability Growth](#ability-growth)
+  - [Skill Heal Scaling](#skill-heal-scaling)
+  - [Vitality Scaling](#vitality-scaling)
+  - [Pickpocket Pricing](#pickpocket-pricing)
 
 ## Accuracy
 
