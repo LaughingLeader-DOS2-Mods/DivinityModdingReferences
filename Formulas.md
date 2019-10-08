@@ -24,7 +24,7 @@ Big thanks to Norbyte for finding all of these.
 | FourthVitalityLeapLevel | 18 |
 | FourthVitalityLeapGrowth | 1.35 |
 
-```
+```c++
 vitalityExp = pow(VitalityExponentialGrowth, level - 1);
 if ( level >= FirstVitalityLeapLevel )
 {
@@ -59,7 +59,7 @@ return round(healValue * averageLevelDamage * HealToDamageRatio / 100.0);
 | VitalityStartingAmount | 21 |
 | VitalityLinearGrowth | 9.091 |
 
-```
+```c++
 vitalityBoost = roundf((level * VitalityLinearGrowth) + (VitalityStartingAmount * vitalityExp)) / 5 * 5.0;
 result = vitalityBoost * vitality / 100
 ```
@@ -73,7 +73,7 @@ result = vitalityBoost * vitality / 100
 | VitalityBoostFromAttribute | 0.07 |
 | ArmorToVitalityRatio | 0.55 |
 
-```
+```c++
 armorScaling = (vitalityBoost * ((AttributeBaseValue + level * ExpectedConGrowthForArmorCalculation - AttributeBaseValue) * VitalityBoostFromAttribute) + 1.0) * ArmorToVitalityRatio;
 armor = armorScaling * armor / 100;
 ```
@@ -82,7 +82,7 @@ armor = armorScaling * armor / 100;
 
 ### AccuracyBonusAbility
 
-```
+```c++
 if (!Weapon) AccuracyBonusAbility = None;
 elseif (LeftWeapon && RightWeapon && LeftWeapon.IsRanged == RightWeapon.IsRanged) AccuracyBonusAbility = DualWielding;
 elseif (Weapon == BOW || Weapon == CROSSBOW || Weapon == CUSTOM) AccuracyBonusAbility = Ranged;
@@ -97,7 +97,7 @@ else AccuracyBonusAbility = SingleHanded;
 | WeaponAccuracyPenaltyPerLevel | -20 |
 | WeaponAccuracyPenaltyCap | -80 |
 
-```
+```c++
 if (Weapon.Level > Character.Level)
     WeaponAccuracyPenalty = min(WeaponAccuracyPenaltyPerLevel * (Weapon.Level - Character.Level), WeaponAccuracyPenaltyCap);
 else
@@ -113,7 +113,7 @@ if (!Weapon->TwoHanded)
 | ------------- | ------------- |
 | CombatAbilityAccuracyBonus | 5 |
 
-```
+```c++
 if (AccuracyBonusAbility == SingleHanded)
     AccuracyBonus = round(Character.AbilityLevel[AccuracyBonusAbility] * CombatAbilityAccuracyBonus);
 else
@@ -128,7 +128,7 @@ WeaponAccuracy = Character.Accuracy + (sum(Accuracy) of all active potion effect
 | ------------- | ------------- |
 | TalentPerfectionistAccuracyBonus | 10 |
 
-```
+```c++
 BaseAccuracy = max(LeftHandWeaponAccuracy, RightHandWeaponAccuracy);
 if (Character.Talent[Perfectionist])
     BaseAccuracy = BaseAccuracy + 1 + TalentPerfectionistAccuracyBonus;
@@ -144,7 +144,7 @@ Accuracy = min(Accuracy + ChanceToHitBoost, 100);
 | AttributeBaseValue | 10 |
 | DodgingBoostFromAttribute | 0 |
 
-```
+```c++
 DodgeBoost = round((Character.Finesse - AttributeBaseValue) * (DodgingBoostFromAttribute * 100));
 ```
 
@@ -154,7 +154,7 @@ DodgeBoost = round((Character.Finesse - AttributeBaseValue) * (DodgingBoostFromA
 | ------------- | ------------- |
 | CombatAbilityDodgingBonus | 1 |
 
-```
+```c++
 Dodge = Character.Dodge + (sum(Dodge) of all active potion effects) + (sum(Dodge) of all equipped items) + Character.DodgeBoost;
 if (AccuracyBonusAbility == DualWielding)
     Dodge += round(CombatAbilityDodgingBonus * Character.AbilityLevel[DualWielding]);
@@ -168,7 +168,7 @@ if (Character.HasTalent[DualWieldingDodging])
 
 ### HitChance
 
-```
+```c++
 targetDodge = 0;
 if ( !Target.IsIncapacitated )
   targetDodge = Target.Dodge;
@@ -192,7 +192,7 @@ HitChance = min(baseHitChance + Attacker.ChanceToHitBoost, 100.0)
 | FourthPriceLeapGrowth | 1.15 |
 | GlobalGoldValueMultiplier | 1 |
 
-```
+```c++
 PickpocketExpLevel = round(PickpocketSkill * PickpocketExperienceLevelsPerPoint);
 priceGrowthExp = pow(PriceGrowth, PickpocketExpLevel - 1);
 if ( PickpocketExpLevel >= FirstPriceLeapLevel )
@@ -223,7 +223,7 @@ return 50 * round(price / 50.0);
 | ------------- | ------------- |
 | AttributeBoostGrowth  | 0.75  |
 
-```
+```c++
 ceil(((AttributeValue - 11) / 10 * Level) * AttributeBoostGrowth)
 ```
 
@@ -234,6 +234,6 @@ ceil(((AttributeValue - 11) / 10 * Level) * AttributeBoostGrowth)
 | CombatAbilityNpcGrowth  | 0.1  |
 | CombatAbilityCap  | 10  |
 
-```
+```c++
 min(round(Level * AbilityValue * CombatAbilityNpcGrowth), CombatAbilityCap)
 ```
