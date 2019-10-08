@@ -1,24 +1,23 @@
-# Divinity: Original Sin 2 - Definitive Edition Formulas
+# Divinity: Original Sin 2 - Definitive Edition Formulas <!-- omit in toc -->
 
 Big thanks to Norbyte for finding all of these.
 
-# Current Formulas
-
-* [Accuracy](Accuracy)
-  * [AccuracyBonusAbility](AccuracyBonusAbility)
-  * [WeaponAccuracyPenalty](WeaponAccuracyPenalty)
-  * [WeaponAccuracy](WeaponAccuracy)
-  * [Accuracy](Accuracy)
-  * [DodgeBoost](DodgeBoost)
-  * [Dodge](Dodge)
-  * [HitChance](HitChance)
-* [Armor Scaling](Armor-Scaling)
-* [Character Stats](Character-Stats)
-  * [Attribute Growth](Attribute-Growth)
-  * [Ability Growth](Ability-Growth)
-* [Skill Heal Scaling](Skill-Heal-Scaling)
-* [Vitality Scaling](Vitality-Scaling)
-* [Pickpocket Pricing](Pickpocket-Pricing)
+# Table of Contents <!-- omit in toc -->
+- [Accuracy](#accuracy)
+  - [AccuracyBonusAbility](#accuracybonusability)
+  - [WeaponAccuracyPenalty](#weaponaccuracypenalty)
+  - [WeaponAccuracy](#weaponaccuracy)
+  - [Accuracy](#accuracy-1)
+  - [DodgeBoost](#dodgeboost)
+  - [Dodge](#dodge)
+  - [HitChance](#hitchance)
+- [Armor Scaling](#armor-scaling)
+- [Character Stats](#character-stats)
+  - [Attribute Growth](#attribute-growth)
+- [Ability Growth](#ability-growth)
+- [Skill Heal Scaling](#skill-heal-scaling)
+- [Vitality Scaling](#vitality-scaling)
+- [Pickpocket Pricing](#pickpocket-pricing)
 
 ## Accuracy
 
@@ -31,7 +30,7 @@ elseif (Weapon == BOW || Weapon == CROSSBOW || Weapon == CUSTOM) AccuracyBonusAb
 elseif (Weapon.IsTwoHanded) AccuracyBonusAbility = TwoHanded;
 else AccuracyBonusAbility = SingleHanded;
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ### WeaponAccuracyPenalty
 
@@ -49,7 +48,7 @@ else
 if (!Weapon->TwoHanded)
     WeaponAccuracyPenalty = WeaponAccuracyPenalty / 2;
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ### WeaponAccuracy
 
@@ -65,7 +64,7 @@ else
 
 WeaponAccuracy = Character.Accuracy + (sum(Accuracy) of all active potion effects) + (sum(Accuracy) of all equipped items) + WeaponAccuracyPenalty + AccuracyBonus;
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ### Accuracy
 
@@ -81,7 +80,7 @@ if (Character.Talent[Perfectionist])
 ChanceToHitBoost = (sum(ChanceToHitBoost) of all active potion effects) + (sum(ChanceToHitBoost) of all equipped items);
 Accuracy = min(Accuracy + ChanceToHitBoost, 100);
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ### DodgeBoost
 
@@ -93,7 +92,7 @@ Accuracy = min(Accuracy + ChanceToHitBoost, 100);
 ```c++
 DodgeBoost = round((Character.Finesse - AttributeBaseValue) * (DodgingBoostFromAttribute * 100));
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ### Dodge
 
@@ -112,7 +111,7 @@ if (Character.HasTalent[Dwarf_Study])
 if (Character.HasTalent[DualWieldingDodging])
     Dodge += 10;
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ### HitChance
 
@@ -123,7 +122,7 @@ if ( !Target.IsIncapacitated )
 baseHitChance = min(round((100.0 - targetDodge) * Attacker.Accuracy / 100.0), 100.0);
 HitChance = min(baseHitChance + Attacker.ChanceToHitBoost, 100.0)
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ## Armor Scaling
 
@@ -138,7 +137,7 @@ HitChance = min(baseHitChance + Attacker.ChanceToHitBoost, 100.0)
 armorScaling = (vitalityBoost * ((AttributeBaseValue + level * ExpectedConGrowthForArmorCalculation - AttributeBaseValue) * VitalityBoostFromAttribute) + 1.0) * ArmorToVitalityRatio;
 armor = armorScaling * armor / 100;
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ## Character Stats
 
@@ -151,7 +150,7 @@ armor = armorScaling * armor / 100;
 ```c++
 ceil(((AttributeValue - 11) / 10 * Level) * AttributeBoostGrowth)
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ## Ability Growth
 
@@ -163,7 +162,7 @@ ceil(((AttributeValue - 11) / 10 * Level) * AttributeBoostGrowth)
 ```c++
 min(round(Level * AbilityValue * CombatAbilityNpcGrowth), CombatAbilityCap)
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ## Skill Heal Scaling
 
@@ -214,7 +213,7 @@ averageLevelDamage = (((level * ExpectedDamageBoostFromSkillAbilityPerLevel) + 1
 
 return round(healValue * averageLevelDamage * HealToDamageRatio / 100.0);
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ## Vitality Scaling
 
@@ -227,7 +226,7 @@ return round(healValue * averageLevelDamage * HealToDamageRatio / 100.0);
 vitalityBoost = roundf((level * VitalityLinearGrowth) + (VitalityStartingAmount * vitalityExp)) / 5 * 5.0;
 result = vitalityBoost * vitality / 100
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
 
 ## Pickpocket Pricing
 
@@ -267,4 +266,4 @@ if ( PickpocketExpLevel >= FourthPriceLeapLevel )
 price = ceil(PickpocketGoldValuePerPoint * priceGrowthExp * GlobalGoldValueMultiplier);
 return 50 * round(price / 50.0);
 ```
-[Back to top](Current-Formulas)
+[Back to top](#Table-of-Contents)
