@@ -180,6 +180,7 @@ min(round(Level * AbilityValue * CombatAbilityNpcGrowth), CombatAbilityCap)
 | ExpectedConGrowthForArmorCalculation | 1 |
 | FirstVitalityLeapLevel | 9 |
 | FirstVitalityLeapGrowth | 1.25 |
+| HealToDamageRatio | 1.3 |
 | SecondVitalityLeapLevel | 13 |
 | SecondVitalityLeapGrowth | 1.25 |
 | ThirdVitalityLeapLevel | 16 |
