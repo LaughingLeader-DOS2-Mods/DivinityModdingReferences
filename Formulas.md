@@ -202,7 +202,7 @@ if ( level >= ThirdVitalityLeapLevel )
 {
 vitalityExp = vitalityExp * ThirdVitalityLeapGrowth / VitalityExponentialGrowth;
 }
-if ( level >= FourthVitalityLeapLevel_ )
+if ( level >= FourthVitalityLeapLevel )
 {
 vitalityExp = vitalityExp * FourthVitalityLeapGrowth / VitalityExponentialGrowth;
 }
