@@ -153,6 +153,20 @@ ceil(((AttributeValue - 11) / 10 * Level) * AttributeBoostGrowth)
 ```
 [Back to top](#Table-of-Contents)
 
+### Attribute Growth (Level Mapped)
+
+| Data Key  | Default Value |
+| ------------- | ------------- |
+| AttributeBoostGrowth  | 0.75  |
+| AttributeLevelGrowth  | 2 |
+| AttributeGrowthDamp   | 0.7 |
+| AttributeBaseValue    | 10 |
+
+```c++
+(ceil((AttributeValue - 1) / 100.0 * (AttributeLevelGrowth + AttributeBoostGrowth) * Level) * AttributeGrowthDamp) + AttributeBaseValue
+```
+[Back to top](#Table-of-Contents)
+
 ## Ability Growth
 
 | Data Key  | Default Value |
