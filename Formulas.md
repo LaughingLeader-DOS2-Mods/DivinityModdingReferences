@@ -19,6 +19,7 @@ Big thanks to Norbyte for finding all of these.
   - [Skill Heal Scaling](#skill-heal-scaling)
   - [Vitality Scaling](#vitality-scaling)
   - [Pickpocket Pricing](#pickpocket-pricing)
+  - [Trap Wits](#trap-wits)
 
 ## Accuracy
 
@@ -282,4 +283,25 @@ if ( PickpocketExpLevel >= FourthPriceLeapLevel )
 price = ceil(PickpocketGoldValuePerPoint * priceGrowthExp * GlobalGoldValueMultiplier);
 return 50 * round(price / 50.0);
 ```
+
+# Trap Wits
+
+| Data Key | Default Value |
+| ------------- | ------------- |
+| AttributeBaseValue | 10 |
+| AttributeLevelGrowth | 2 |
+| AttributeBoostGrowth | 0.75 |
+| WitsGrowthDamp | 0.5 |
+
+```c++
+if ( difficulty > 1 )
+{
+	result = (ceil((((difficulty - 1) / 100.0) * (AttributeLevelGrowth + AttributeBoostGrowth)) * level) * WitsGrowthDamp) + AttributeBaseValue;
+}
+else
+{
+	result = AttributeBaseValue;
+}
+```
+
 [Back to top](#Table-of-Contents)
